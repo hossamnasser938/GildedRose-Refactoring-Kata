@@ -39,7 +39,7 @@ export class GildedRose {
   private decreaseQuality(item: Item) {
     this.decrementQuality(item);
 
-    if (item.sellIn < QUALITY_LOWER_LIMIT) {
+    if (item.sellIn < 0) {
       this.decrementQuality(item);
     }
   }
