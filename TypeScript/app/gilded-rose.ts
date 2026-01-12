@@ -10,6 +10,9 @@ export class Item {
   }
 }
 
+const QUALITY_LOWER_LIMIT = 0;
+const QUALITY_UPPER_LIMIT = 50;
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -29,20 +32,20 @@ export class GildedRose {
         item.name != "Aged Brie" &&
         item.name != "Backstage passes to a TAFKAL80ETC concert"
       ) {
-        if (item.quality > 0) {
+        if (item.quality > QUALITY_LOWER_LIMIT) {
           item.quality = item.quality - 1;
         }
       } else {
-        if (item.quality < 50) {
+        if (item.quality < QUALITY_UPPER_LIMIT) {
           item.quality = item.quality + 1;
           if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
             if (item.sellIn < 11) {
-              if (item.quality < 50) {
+              if (item.quality < QUALITY_UPPER_LIMIT) {
                 item.quality = item.quality + 1;
               }
             }
             if (item.sellIn < 6) {
-              if (item.quality < 50) {
+              if (item.quality < QUALITY_UPPER_LIMIT) {
                 item.quality = item.quality + 1;
               }
             }
@@ -55,14 +58,14 @@ export class GildedRose {
       if (item.sellIn < 0) {
         if (item.name != "Aged Brie") {
           if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (item.quality > 0) {
+            if (item.quality > QUALITY_LOWER_LIMIT) {
               item.quality = item.quality - 1;
             }
           } else {
-            item.quality = item.quality - item.quality;
+            item.quality = QUALITY_LOWER_LIMIT;
           }
         } else {
-          if (item.quality < 50) {
+          if (item.quality < QUALITY_UPPER_LIMIT) {
             item.quality = item.quality + 1;
           }
         }
