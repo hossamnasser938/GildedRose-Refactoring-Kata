@@ -75,20 +75,13 @@ export class GildedRose {
         continue;
       }
 
-      if (item.quality < QUALITY_UPPER_LIMIT) {
-        item.quality = item.quality + 1;
-        if (item.sellIn < 11) {
-          if (item.quality < QUALITY_UPPER_LIMIT) {
-            item.quality = item.quality + 1;
-          }
-        }
-        if (item.sellIn < 6) {
-          if (item.quality < QUALITY_UPPER_LIMIT) {
-            item.quality = item.quality + 1;
-          }
-        }
+      this.incrementQuality(item);
+      if (item.sellIn < 11) {
+        this.incrementQuality(item);
       }
-
+      if (item.sellIn < 6) {
+        this.incrementQuality(item);
+      }
       this.decrementSellIn(item);
 
       if (item.sellIn < 0) {
