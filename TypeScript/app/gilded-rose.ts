@@ -20,6 +20,10 @@ export class GildedRose {
     this.items = items;
   }
 
+  decrementSellIn(item) {
+    item.sellIn--;
+  }
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
@@ -53,20 +57,20 @@ export class GildedRose {
         }
       }
 
-      item.sellIn = item.sellIn - 1;
+      this.decrementSellIn(item);
 
       if (item.sellIn < 0) {
-        if (item.name != "Aged Brie") {
+        if (item.name === "Aged Brie") {
+          if (item.quality < QUALITY_UPPER_LIMIT) {
+            item.quality = item.quality + 1;
+          }
+        } else {
           if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
             if (item.quality > QUALITY_LOWER_LIMIT) {
               item.quality = item.quality - 1;
             }
           } else {
             item.quality = QUALITY_LOWER_LIMIT;
-          }
-        } else {
-          if (item.quality < QUALITY_UPPER_LIMIT) {
-            item.quality = item.quality + 1;
           }
         }
       }
