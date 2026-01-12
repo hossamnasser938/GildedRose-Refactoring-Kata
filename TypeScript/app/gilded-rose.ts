@@ -56,12 +56,6 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
 
-      if (this.isNormalItem(item)) {
-        this.decrementSellIn(item);
-        this.decreaseQuality(item);
-        continue;
-      }
-
       if (item.name === "Sulfuras, Hand of Ragnaros") {
         continue;
       }
@@ -72,21 +66,28 @@ export class GildedRose {
         if (item.sellIn < 0) {
           this.incrementQuality(item);
         }
+
         continue;
       }
 
-      this.incrementQuality(item);
-      if (item.sellIn < 11) {
+      if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
         this.incrementQuality(item);
-      }
-      if (item.sellIn < 6) {
-        this.incrementQuality(item);
-      }
-      this.decrementSellIn(item);
+        if (item.sellIn < 11) {
+          this.incrementQuality(item);
+        }
+        if (item.sellIn < 6) {
+          this.incrementQuality(item);
+        }
+        this.decrementSellIn(item);
+        if (item.sellIn < 0) {
+          item.quality = QUALITY_LOWER_LIMIT;
+        }
 
-      if (item.sellIn < 0) {
-        item.quality = QUALITY_LOWER_LIMIT;
+        continue;
       }
+
+      this.decrementSellIn(item);
+      this.decreaseQuality(item);
     }
 
     return this.items;
