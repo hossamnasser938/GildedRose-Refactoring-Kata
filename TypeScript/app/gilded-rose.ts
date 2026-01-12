@@ -77,22 +77,19 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
 
-      if (item.name === "Sulfuras, Hand of Ragnaros") {
-        this.handleSulfurasItem(item);
-        continue;
+      switch (item.name) {
+        case "Sulfuras, Hand of Ragnaros":
+          this.handleSulfurasItem(item);
+          break;
+        case "Aged Brie":
+          this.handleAgedBrieItem(item);
+          break;
+        case "Backstage passes to a TAFKAL80ETC concert":
+          this.handleBackstageItem(item);
+          break;
+        default:
+          this.handleNormalItem(item);
       }
-
-      if (item.name === "Aged Brie") {
-        this.handleAgedBrieItem(item);
-        continue;
-      }
-
-      if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-        this, this.handleBackstageItem(item);
-        continue;
-      }
-
-      this.handleNormalItem(item);
     }
 
     return this.items;
