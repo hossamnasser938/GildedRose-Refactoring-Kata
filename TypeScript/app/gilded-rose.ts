@@ -20,23 +20,23 @@ export class GildedRose {
     this.items = items;
   }
 
-  decrementSellIn(item: Item) {
+  private decrementSellIn(item: Item) {
     item.sellIn--;
   }
 
-  incrementQuality(item: Item) {
+  private incrementQuality(item: Item) {
     if (item.quality < QUALITY_UPPER_LIMIT) {
       item.quality++;
     }
   }
 
-  decrementQuality(item: Item) {
+  private decrementQuality(item: Item) {
     if (item.quality > QUALITY_LOWER_LIMIT) {
       item.quality--;
     }
   }
 
-  decreaseQuality(item: Item) {
+  private decreaseQuality(item: Item) {
     this.decrementQuality(item);
 
     if (item.sellIn < QUALITY_LOWER_LIMIT) {
@@ -44,9 +44,9 @@ export class GildedRose {
     }
   }
 
-  handleSulfurasItem(item: Item) {}
+  private handleSulfurasItem(item: Item) {}
 
-  handleAgedBrieItem(item: Item) {
+  private handleAgedBrieItem(item: Item) {
     this.decrementSellIn(item);
     this.incrementQuality(item);
     if (item.sellIn < 0) {
@@ -54,7 +54,7 @@ export class GildedRose {
     }
   }
 
-  handleBackstageItem(item: Item) {
+  private handleBackstageItem(item: Item) {
     this.incrementQuality(item);
     if (item.sellIn < 11) {
       this.incrementQuality(item);
@@ -68,7 +68,7 @@ export class GildedRose {
     }
   }
 
-  handleNormalItem(item: Item) {
+  private handleNormalItem(item: Item) {
     this.decrementSellIn(item);
     this.decreaseQuality(item);
   }
