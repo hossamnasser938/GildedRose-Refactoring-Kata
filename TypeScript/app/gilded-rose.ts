@@ -12,23 +12,23 @@ export class Item {
     this.quality = quality;
   }
 
-  decrementSellIn() {
+  private decrementSellIn() {
     this.sellIn--;
   }
 
-  incrementQuality() {
+  private incrementQuality() {
     if (this.quality < QUALITY_UPPER_LIMIT) {
       this.quality++;
     }
   }
 
-  decrementQuality() {
+  private decrementQuality() {
     if (this.quality > QUALITY_LOWER_LIMIT) {
       this.quality--;
     }
   }
 
-  decreaseQuality() {
+  private decreaseQuality() {
     this.decrementQuality();
 
     if (this.sellIn < 0) {
@@ -36,9 +36,9 @@ export class Item {
     }
   }
 
-  updateSulfurasItemQuality() {}
+  private updateSulfurasItemQuality() {}
 
-  updateAgedBrieItemQuality() {
+  private updateAgedBrieItemQuality() {
     this.decrementSellIn();
     this.incrementQuality();
     if (this.sellIn < 0) {
@@ -46,7 +46,7 @@ export class Item {
     }
   }
 
-  updateBackstageItemQuality() {
+  private updateBackstageItemQuality() {
     this.incrementQuality();
     if (this.sellIn < 11) {
       this.incrementQuality();
@@ -60,7 +60,7 @@ export class Item {
     }
   }
 
-  updateNormalItemQuality() {
+  private updateNormalItemQuality() {
     this.decrementSellIn();
     this.decreaseQuality();
   }
