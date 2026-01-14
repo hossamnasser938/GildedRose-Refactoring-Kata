@@ -2,45 +2,45 @@ import { ItemBehavior } from "./item-behavior";
 import { ItemBehaviorFactory } from "./item-behavior-factory";
 
 export class Item {
-  private impl: ItemBehavior;
+  private behavior: ItemBehavior;
 
   constructor(name: string, sellIn: number, quality: number) {
-    this.impl = ItemBehaviorFactory.create(name, sellIn, quality);
+    this.behavior = ItemBehaviorFactory.create(name, sellIn, quality);
 
-    Object.defineProperty(this, "impl", {
-      value: this.impl,
+    Object.defineProperty(this, "behavior", {
+      value: this.behavior,
       enumerable: false,
     });
 
     Object.defineProperty(this, "name", {
-      get: () => this.impl.name,
+      get: () => this.behavior.name,
       enumerable: true,
     });
 
     Object.defineProperty(this, "sellIn", {
-      get: () => this.impl.sellIn,
+      get: () => this.behavior.sellIn,
       enumerable: true,
     });
 
     Object.defineProperty(this, "quality", {
-      get: () => this.impl.quality,
+      get: () => this.behavior.quality,
       enumerable: true,
     });
   }
 
   updateQuality() {
-    this.impl.updateQuality();
+    this.behavior.updateQuality();
   }
 
   get name() {
-    return this.impl.name;
+    return this.behavior.name;
   }
 
   get sellIn() {
-    return this.impl.sellIn;
+    return this.behavior.sellIn;
   }
 
   get quality() {
-    return this.impl.quality;
+    return this.behavior.quality;
   }
 }
