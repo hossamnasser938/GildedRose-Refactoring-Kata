@@ -65,7 +65,7 @@ export class Item {
     this.decreaseQuality();
   }
 
-  updateItemQuality() {
+  updateQuality() {
     switch (this.name) {
       case "Sulfuras, Hand of Ragnaros":
         this.updateSulfurasItemQuality();
@@ -91,7 +91,7 @@ export class GildedRose {
 
   updateQuality() {
     for (const item of this.items) {
-      item.updateItemQuality();
+      item.updateQuality();
     }
 
     return this.items;
