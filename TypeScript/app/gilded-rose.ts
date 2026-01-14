@@ -1,7 +1,7 @@
 const QUALITY_LOWER_LIMIT = 0;
 const QUALITY_UPPER_LIMIT = 50;
 
-export class Item {
+class ItemBehavior {
   name: string;
   sellIn: number;
   quality: number;
@@ -79,6 +79,65 @@ export class Item {
       default:
         this.updateNormalItemQuality();
     }
+  }
+}
+
+class ItemBehaviorFactory {
+  static create(name: string, sellIn: number, quality: number) {
+    switch (name) {
+      case "Sulfuras, Hand of Ragnaros":
+        return new ItemBehavior(name, sellIn, quality);
+      case "Aged Brie":
+        return new ItemBehavior(name, sellIn, quality);
+      case "Backstage passes to a TAFKAL80ETC concert":
+        return new ItemBehavior(name, sellIn, quality);
+      default:
+        return new ItemBehavior(name, sellIn, quality);
+    }
+  }
+}
+
+export class Item {
+  private impl: ItemBehavior;
+
+  constructor(name: string, sellIn: number, quality: number) {
+    this.impl = ItemBehaviorFactory.create(name, sellIn, quality);
+
+    Object.defineProperty(this, "impl", {
+      value: this.impl,
+      enumerable: false,
+    });
+
+    Object.defineProperty(this, "name", {
+      get: () => this.impl.name,
+      enumerable: true,
+    });
+
+    Object.defineProperty(this, "sellIn", {
+      get: () => this.impl.sellIn,
+      enumerable: true,
+    });
+
+    Object.defineProperty(this, "quality", {
+      get: () => this.impl.quality,
+      enumerable: true,
+    });
+  }
+
+  updateQuality() {
+    this.impl.updateQuality();
+  }
+
+  get name() {
+    return this.impl.name;
+  }
+
+  get sellIn() {
+    return this.impl.sellIn;
+  }
+
+  get quality() {
+    return this.impl.quality;
   }
 }
 
