@@ -1,0 +1,83 @@
+const QUALITY_LOWER_LIMIT = 0;
+const QUALITY_UPPER_LIMIT = 50;
+
+export class ItemBehavior {
+  name: string;
+  sellIn: number;
+  quality: number;
+
+  constructor(name, sellIn, quality) {
+    this.name = name;
+    this.sellIn = sellIn;
+    this.quality = quality;
+  }
+
+  private decrementSellIn() {
+    this.sellIn--;
+  }
+
+  private incrementQuality() {
+    if (this.quality < QUALITY_UPPER_LIMIT) {
+      this.quality++;
+    }
+  }
+
+  private decrementQuality() {
+    if (this.quality > QUALITY_LOWER_LIMIT) {
+      this.quality--;
+    }
+  }
+
+  private decreaseQuality() {
+    this.decrementQuality();
+
+    if (this.sellIn < 0) {
+      this.decrementQuality();
+    }
+  }
+
+  private updateSulfurasItemQuality() {}
+
+  private updateAgedBrieItemQuality() {
+    this.decrementSellIn();
+    this.incrementQuality();
+    if (this.sellIn < 0) {
+      this.incrementQuality();
+    }
+  }
+
+  private updateBackstageItemQuality() {
+    this.incrementQuality();
+    if (this.sellIn < 11) {
+      this.incrementQuality();
+    }
+    if (this.sellIn < 6) {
+      this.incrementQuality();
+    }
+    this.decrementSellIn();
+    if (this.sellIn < 0) {
+      this.quality = QUALITY_LOWER_LIMIT;
+    }
+  }
+
+  private updateNormalItemQuality() {
+    this.decrementSellIn();
+    this.decreaseQuality();
+  }
+
+  updateQuality() {
+    switch (this.name) {
+      case "Sulfuras, Hand of Ragnaros":
+        this.updateSulfurasItemQuality();
+        break;
+      case "Aged Brie":
+        this.updateAgedBrieItemQuality();
+        break;
+      case "Backstage passes to a TAFKAL80ETC concert":
+        this.updateBackstageItemQuality();
+        break;
+      default:
+        this.updateNormalItemQuality();
+    }
+  }
+}
