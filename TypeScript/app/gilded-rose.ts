@@ -36,9 +36,9 @@ export class Item {
     }
   }
 
-  handleSulfurasItem() {}
+  updateSulfurasItemQuality() {}
 
-  handleAgedBrieItem() {
+  updateAgedBrieItemQuality() {
     this.decrementSellIn();
     this.incrementQuality();
     if (this.sellIn < 0) {
@@ -46,7 +46,7 @@ export class Item {
     }
   }
 
-  handleBackstageItem() {
+  updateBackstageItemQuality() {
     this.incrementQuality();
     if (this.sellIn < 11) {
       this.incrementQuality();
@@ -60,7 +60,7 @@ export class Item {
     }
   }
 
-  handleNormalItem() {
+  updateNormalItemQuality() {
     this.decrementSellIn();
     this.decreaseQuality();
   }
@@ -68,16 +68,16 @@ export class Item {
   updateItemQuality() {
     switch (this.name) {
       case "Sulfuras, Hand of Ragnaros":
-        this.handleSulfurasItem();
+        this.updateSulfurasItemQuality();
         break;
       case "Aged Brie":
-        this.handleAgedBrieItem();
+        this.updateAgedBrieItemQuality();
         break;
       case "Backstage passes to a TAFKAL80ETC concert":
-        this.handleBackstageItem();
+        this.updateBackstageItemQuality();
         break;
       default:
-        this.handleNormalItem();
+        this.updateNormalItemQuality();
     }
   }
 }
