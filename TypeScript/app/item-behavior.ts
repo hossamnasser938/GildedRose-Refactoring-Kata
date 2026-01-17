@@ -5,7 +5,7 @@ export abstract class ItemBehavior {
   constructor(
     public name: string,
     public sellIn: number,
-    public quality: number
+    public quality: number,
   ) {}
 
   protected isQualityLowerLimitSafe() {
@@ -37,6 +37,14 @@ export abstract class ItemBehavior {
 
     if (this.sellIn < 0) {
       this.decrementQuality();
+    }
+  }
+
+  protected increaseQuality() {
+    this.incrementQuality();
+
+    if (this.sellIn < 0) {
+      this.incrementQuality();
     }
   }
 
