@@ -28,6 +28,33 @@ describe("Gilded Rose", () => {
     });
   });
 
+  describe("(Conjured) items degrade in Quality twice as fast as normal items", () => {
+    it("one time update quality", () => {
+      const gildedRose = new GildedRose([new Item("Conjured", 10, 10)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(9);
+      expect(items[0].quality).toBe(8);
+    });
+
+    it("more than one time update quality", () => {
+      const gildedRose = new GildedRose([new Item("Conjured", 10, 10)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(7);
+      expect(items[0].quality).toBe(4);
+    });
+
+    it("quality lower limit is respected", () => {
+      const gildedRose = new GildedRose([new Item("normal-product", 10, 1)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(7);
+      expect(items[0].quality).toBe(0);
+    });
+  });
+
   describe("(Sulfuras, Hand of Ragnaros) remaining constant", () => {
     it("quality and sellIn never changes", () => {
       const gildedRose = new GildedRose([
